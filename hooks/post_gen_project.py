@@ -1,10 +1,16 @@
-"""
-Does the following:
+# -*- coding: utf-8 -*-
+"""Example  docstrings.
+
+This module does the following:
 
 1. Inits git if used
 2. Deletes dockerfiles if not going to be used
 3. Deletes config utils if not needed
+
+.. Python Style Guide:
+    STYLEGUIDE.md
 """
+
 from __future__ import print_function
 import os
 import shutil
@@ -16,6 +22,9 @@ PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 def remove_file(filename):
     """
     generic remove file from project dir
+    
+    Args:
+        filename (str): name of the file to remove
     """
     fullpath = os.path.join(PROJECT_DIRECTORY, filename)
     if os.path.exists(fullpath):
@@ -23,7 +32,7 @@ def remove_file(filename):
 
 def init_git():
     """
-    Initialises git on the new project folder
+    initializes git on the new project folder
     """
     GIT_COMMANDS = [
         ["git", "init"],
@@ -94,11 +103,17 @@ if '{{ cookiecutter.use_cobra_cmd }}'.lower() != 'y':
     remove_cobra_files()
 
 # 5. Remove unused ci choice
-if '{{ cookiecutter.use_ci}}'.lower() == 'travis':
+if '{{ cookiecutter.use_ci}}'.lower() == 'gitlab':
+    remove_circleci_files()
+    remove_file(".travis.yml")
+elif '{{ cookiecutter.use_ci}}'.lower() == 'travis':
+    remove_file(".gitlab-ci.yml")
     remove_circleci_files()
 elif '{{ cookiecutter.use_ci}}'.lower() == 'circle':
+    remove_file(".gitlab-ci.yml")
     remove_file(".travis.yml")
 else:
+    remove_file(".gitlab-ci.yml")
     remove_file(".travis.yml")
     remove_circleci_files()
 

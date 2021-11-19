@@ -1,0 +1,59 @@
+stages:
+  - linting
+  - security
+  - testing
+  - building
+
+
+Linting:
+  image: golang:latest
+  stage: linting
+  variables:
+    REPO_NAME: {{cookiecutter.app_name}}
+  before_script:
+    - go mod download
+    - go get -u golang.org/x/lint/golint
+    - go get -v -u github.com/go-critic/go-critic/cmd/gocritic
+    - go install honnef.co/go/tools/cmd/staticcheck@latest
+    - go install golang.org/x/tools/go/analysis/passes/shadow/cmd/shadow
+  script:
+    - golint -set_exit_status $(go list ./... | grep -v /vendor/)
+    - shadow -v $(go list ./... | grep -v /vendor/)
+    # - gocritic check -enableAll $(go list ./... | grep -v /vendor/)
+    - staticcheck $(go list ./... | grep -v /vendor/)
+
+Testing-Linux-64bit:
+  image: golang:latest
+  stage: testing
+  variables:
+    REPO_NAME: {{cookiecutter.app_name}}  
+  before_script:
+    - go mod download
+  script:
+    - go test -v $(go list ./... | grep -v /vendor/)
+    # - go test -cover $(go list ./... | grep -v /vendor/)
+
+Security:
+  image: golang:latest
+  stage: security
+  variables:
+    REPO_NAME: {{cookiecutter.app_name}}
+  before_script:
+    - go mod download
+  script:
+    - go vet $(go list ./... | grep -v /vendor/)
+
+Build:
+  image: golang:latest
+  stage: building
+  variables:
+    REPO_NAME: {{cookiecutter.app_name}}
+  before_script:
+    - go mod tidy
+  script:
+    - make
+  artifacts:
+    paths:
+      - ./bin/{{cookiecutter.app_name}}
+  only:
+    - tags
