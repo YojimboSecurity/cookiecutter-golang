@@ -4,12 +4,24 @@ import (
 	{% if cookiecutter.use_cobra_cmd == "n" %}"flag"
 	"fmt"
 	"{{cookiecutter.app_name}}/version"{% endif %}
-	{% if cookiecutter.use_cobra_cmd == "y" %}"{{cookiecutter.app_name}}/cmd"{% endif %}
+	{% if cookiecutter.use_cobra_cmd == "y" %}
+	"{{cookiecutter.app_name}}/cmd"
+	"github.com/pkg/profile"
+	{% endif %}
 )
 
 func main() {
 
     {% if cookiecutter.use_cobra_cmd == "y" %}
+	if version.Profile == "on"{
+		if version.ProfileType == "CPU"{
+			defer profile.Start(profile.CPUProfile, profile.ProfilePath(".")).Stop()
+		}
+		if version.ProfileType == "MEM"{
+			defer profile.Start(profile.MemProfile, profile.MemProfileRate(1), profile.ProfilePath(".")).Stop()
+		}
+	}
+
     cmd.Execute()
 	{% else %}
 	versionFlag := flag.Bool("version", false, "Version")

@@ -36,6 +36,18 @@ build:
 	@echo "GOPATH=${GOPATH}"
 	go build -ldflags "-X {{cookiecutter.app_name}}/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X {{cookiecutter.app_name}}/version.BuildDate=${BUILD_DATE}" -o bin/${BIN_NAME}
 
+build-race:
+	@echo "building ${BIN_NAME} ${VERSION}"
+	@echo "GOPATH=${GOPATH}"
+	go build -race -ldflags "-X {{cookiecutter.app_name}}/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X {{cookiecutter.app_name}}/version.BuildDate=${BUILD_DATE}" -o bin/${BIN_NAME}-race
+
+
+build-profile-mem:
+	go build -ldflags "-X {{cookiecutter.app_name}}/version.Profile=on -X {{cookiecutter.app_name}}/version.ProfileType=MEM" -o bin/${BIN_NAME}-prof-mem
+
+build-profile-cpu:
+	go build -ldflags "-X {{cookiecutter.app_name}}/version.Profile=on -X {{cookiecutter.app_name}}/version.ProfileType=CPU" -o bin/${BIN_NAME}-prof-cpu
+
 get-deps:
 	dep ensure
 {% if cookiecutter.use_docker == "y" %}

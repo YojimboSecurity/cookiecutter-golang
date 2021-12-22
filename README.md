@@ -1,7 +1,5 @@
 # cookiecutter-golang
 
-[![Build Status](https://travis-ci.org/lacion/cookiecutter-golang.svg?branch=master)](https://travis-ci.org/lacion/cookiecutter-golang)
-
 Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter), Cookiecutter Golang is a framework for jumpstarting production-ready go projects quickly.
 
 ## Features
@@ -26,14 +24,6 @@ Powered by [Cookiecutter](https://github.com/audreyr/cookiecutter), Cookiecutter
 
 This project now uses docker multistage builds, you need at least docker version v17.05.0-ce to use the docker file in this template, [you can read more about multistage builds here](https://www.critiqus.com/post/multi-stage-docker-builds/).
 
-## Docker
-
-This template uses docker multistage builds to make images slimmer and containers only the final project binary and assets with no source code whatsoever.
-
-You can find the image dokcer file in this [repo](https://github.com/lacion/alpine-golang-buildimage) and more information about docker multistage builds in this [blog post](https://www.critiqus.com/post/multi-stage-docker-builds/).
-
-Apps run under non root user and also with [dumb-init](https://github.com/Yelp/dumb-init).
-
 ## Usage
 
 Let's pretend you want to create a project called "echoserver". Rather than starting from scratch maybe copying 
@@ -52,22 +42,22 @@ $ brew install cookiecutter
 
 Finally, to run it based on this template, type:
 ```console
-$ cookiecutter https://github.com/lacion/cookiecutter-golang.git
+$ cookiecutter https://github.com/YojimboSecurity/cookiecutter-golang.git
 ```
 
 You will be asked about your basic info (name, project name, app name, etc.). This info will be used to customize your new project.
 
-Warning: After this point, change 'Luis Morales', 'lacion', etc to your own information.
+Warning: After this point, change 'David Johnson', etc to your own information.
 
 Answer the prompts with your own desired [options](). For example:
 ```console
-full_name [Luis Morales]: Luis Morales
-github_username [lacion]: lacion
+full_name [David Johnson]: David Johnson
+github_username [YojimboSecurity]: YojimboSecurity
 app_name [mygolangproject]: echoserver
 project_short_description [A Golang project.]: Awesome Echo Server
-docker_hub_username [lacion]: lacion
-docker_image [lacion/docker-alpine:latest]: lacion/docker-alpine:latest
-docker_build_image [lacion/docker-alpine:gobuildimage]: lacion/docker-alpine:gobuildimage
+docker_hub_username [YojimboSecurity]: YojimboSecurity
+docker_image [YojimboSecurity/docker-alpine:latest]: YojimboSecurity/docker-alpine:latest
+docker_build_image [YojimboSecurity/docker-alpine:gobuildimage]: YojimboSecurity/docker-alpine:gobuildimage
 use_docker [y]: y
 use_git [y]: y
 use_logrus_logging [y]: y
@@ -93,6 +83,6 @@ $ make build
 $ ./bin/echoserver
 ```
 
-## Projects build with cookiecutter-golang
+## Credits
 
-- [iothub](https://github.com/lacion/iothub) websocket multiroom server for IoT
+This is a fork of https://github.com/lacion/cookiecutter-golang.git
