@@ -1,0 +1,4 @@
+#!/bin/bash
+# TODO: clone into this into my repo
+cookiecutter gh:dec0dOS/amazing-github-template
+

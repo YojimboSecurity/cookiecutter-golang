@@ -1,7 +1,7 @@
 package main
 
 import (
-	{% if cookiecutter.use_cobra_cmd == "n" %}"flag"
+	{% if cookiecutter.use_cobra_cmd == "y" %}"flag"
 	"fmt"
 	"{{cookiecutter.app_name}}/version"{% endif %}
 	{% if cookiecutter.use_cobra_cmd == "y" %}

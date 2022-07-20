@@ -19,7 +19,6 @@ var GoVersion = runtime.Version()
 
 // OsArch returns the os and arch used to build the binary
 var OsArch = fmt.Sprintf("%s %s", runtime.GOOS, runtime.GOARCH)
-
 {% if cookiecutter.use_cobra_cmd == "y" %}
 // Profile returns if wether or not the profiler is turned on
 var Profile = "off"
